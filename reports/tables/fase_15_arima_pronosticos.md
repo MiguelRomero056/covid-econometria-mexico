@@ -77,6 +77,6 @@ El mejor modelo por AIC en la ventana de entrenamiento fue `ARIMA(2, 0, 2)`.
 
 ## Interpretacion
 
-Los pronosticos a 7, 14 y 30 dias permiten evaluar H4. La comparacion no se limita a ordenes ARIMA: se incluyen benchmarks Naive, promedio movil de 7 dias, Exponential Smoothing y el ARIMA seleccionado. El mejor modelo por horizonte fue: 7 dias: Exponential Smoothing; 14 dias: Exponential Smoothing; 30 dias: Exponential Smoothing. Esta comparacion hace defendible el punto extra porque contrasta el ARIMA contra alternativas simples y transparentes antes de seleccionar el pronostico final.
+Los pronosticos a 7, 14 y 30 dias permiten evaluar H4. La comparacion no se limita a ordenes ARIMA: se incluyen benchmarks Naive, promedio movil de 7 dias, Exponential Smoothing y el ARIMA seleccionado. La narrativa oficial del punto extra es: se realizo una comparacion de multiples modelos de pronostico; ARIMA(2, 0, 2) fue el mejor por AIC dentro de los modelos ARIMA, pero Exponential Smoothing tuvo mejor desempeno en la validacion final por RMSE en los horizontes de 7, 14 y 30 dias. Esta comparacion hace defendible el punto extra porque contrasta el ARIMA contra alternativas simples y transparentes antes de seleccionar el pronostico final.
 
 Se generan dos graficas separadas: `reports/figures/fase_15_validacion_pronosticos.png` para validacion contra datos reales y `reports/figures/fase_15_pronostico_futuro.png` para pronostico futuro. La revision de residuos indica si el ARIMA seleccionado dejo autocorrelacion remanente relevante.

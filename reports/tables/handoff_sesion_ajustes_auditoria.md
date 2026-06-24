@@ -32,4 +32,4 @@ Fecha de handoff: 2026-06-23
 
 ## Estado Git
 
-Estos ajustes estan locales al momento de este handoff. Falta commit y push si se quieren subir al repositorio.
+Estos ajustes ya fueron commiteados y pusheados a `origin/main` en el commit `8035867 Refine diagnostics dummies and forecasts`.

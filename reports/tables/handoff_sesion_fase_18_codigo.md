@@ -31,4 +31,4 @@ El proyecto conserva completo el bloque de fases 6 a 15 y se agrego la fase 18 c
 
 ## Estado Git
 
-Los cambios siguen locales. No se ha hecho commit ni push.
+Los cambios de la fase 18 ya fueron commiteados y pusheados a `origin/main` en el commit `8ac81c7 Complete econometric phases through dashboard`.

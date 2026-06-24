@@ -63,10 +63,10 @@ La serie diaria continua generada para modelos temporales contiene 2,291 dias en
 - Las hospitalizaciones explican mejor las defunciones diarias que los casos confirmados en modelos con rezagos: R2 de 0.9186 contra 0.2774.
 - El modelo con rezagos combinados mejora el ajuste: R2 de 0.9324.
 - El modelo de ajuste parcial muestra persistencia fuerte: coeficiente de `defunciones_t-1` de 0.9952.
-- El mejor candidato ARIMA por AIC fue ARIMA(2, 0, 2), con pronosticos evaluados a 7, 14 y 30 dias.
+- El mejor candidato dentro de los modelos ARIMA por AIC fue ARIMA(2, 0, 2); en la comparacion final de pronosticos por RMSE, Exponential Smoothing tuvo el mejor desempeno en los horizontes de 7, 14 y 30 dias.
 - La fase de dummies documenta explicitamente sexo, diabetes, hipertension, obesidad, hospitalizacion y defuncion, ademas de dummies temporales complementarias.
 - El diagnostico incluye heterocedasticidad, autocorrelacion, VIF y normalidad de residuos con Jarque-Bera y Shapiro-Wilk.
-- La fase de pronostico compara Naive, promedio movil, Exponential Smoothing y ARIMA para horizontes de 7, 14 y 30 dias.
+- La fase de pronostico compara Naive, promedio movil, Exponential Smoothing y ARIMA para horizontes de 7, 14 y 30 dias como punto extra.
 - El contraste de hipotesis esta disponible en `reports/tables/fase_06_15_contraste_hipotesis.md`.
 - El dashboard resumen estatico se genera con `scripts/build_phase_18_dashboard.py`.
 
