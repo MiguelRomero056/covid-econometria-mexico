@@ -1,0 +1,4 @@
+﻿horizonte,mejor_modelo,mejor_rmse,mejor_mae,mejor_mape
+7.0,Exponential Smoothing,0.534399,0.285813,99.976891
+14.0,Exponential Smoothing,0.377877,0.143022,99.976891
+30.0,Exponential Smoothing,0.316155,0.100185,99.976891

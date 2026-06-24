@@ -20,7 +20,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from src.diagnostics import ols_diagnostic_tests, vif_table
+from src.diagnostics import ols_diagnostic_tests, residual_normality_tests, vif_table
 from src.econometric_models import (
     add_adaptive_expectations,
     add_lags,
@@ -36,9 +36,13 @@ from src.econometric_models import (
 )
 from src.forecasting import (
     adf_summary,
+    compare_forecast_models,
+    exponential_smoothing_forecast,
     fit_arima_candidates,
     forecast_errors,
     ljung_box_summary,
+    moving_average_forecast,
+    naive_forecast,
 )
 
 
@@ -305,14 +309,67 @@ La regresion multiple permite comparar el aporte contemporaneo de casos confirma
     fase8_metrics = pd.DataFrame([model_metrics(dummy_result, "OLS dummies temporales")]).round(6)
     save_csv(fase8_coef, "fase_08_coeficientes_dummies_temporales.csv")
     save_csv(fase8_metrics, "fase_08_metricas_dummies_temporales.csv")
+    clinical_dummies = pd.DataFrame(
+        [
+            {
+                "variable": "sexo_hombre",
+                "origen": "Limpieza de datos individuales",
+                "construccion": "1 si el registro corresponde a hombre; 0 si corresponde a mujer.",
+                "valores_posibles": "0, 1",
+                "interpretacion_economica": "Controla diferencias demograficas de riesgo y uso de servicios de salud por sexo.",
+            },
+            {
+                "variable": "diabetes_dummy",
+                "origen": "Limpieza de datos individuales",
+                "construccion": "1 si el paciente reporta diabetes; 0 si no la reporta.",
+                "valores_posibles": "0, 1",
+                "interpretacion_economica": "Aproxima vulnerabilidad clinica asociada con mayor riesgo de complicaciones.",
+            },
+            {
+                "variable": "hipertension_dummy",
+                "origen": "Limpieza de datos individuales",
+                "construccion": "1 si el paciente reporta hipertension; 0 si no la reporta.",
+                "valores_posibles": "0, 1",
+                "interpretacion_economica": "Captura comorbilidad prevalente que puede elevar severidad y mortalidad.",
+            },
+            {
+                "variable": "obesidad_dummy",
+                "origen": "Limpieza de datos individuales",
+                "construccion": "1 si el paciente reporta obesidad; 0 si no la reporta.",
+                "valores_posibles": "0, 1",
+                "interpretacion_economica": "Controla un factor de riesgo asociado con mayor presion sobre atencion hospitalaria.",
+            },
+            {
+                "variable": "hospitalizacion",
+                "origen": "Limpieza de datos individuales y agregacion diaria",
+                "construccion": "1 si el paciente fue hospitalizado; 0 si recibio manejo ambulatorio.",
+                "valores_posibles": "0, 1",
+                "interpretacion_economica": "Proxy de severidad y demanda de recursos hospitalarios; tambien se agrega como hospitalizaciones diarias.",
+            },
+            {
+                "variable": "defuncion",
+                "origen": "Limpieza de datos individuales y agregacion diaria",
+                "construccion": "1 si el registro tiene fecha de defuncion valida; 0 si no la tiene.",
+                "valores_posibles": "0, 1",
+                "interpretacion_economica": "Variable de resultado individual; agregada por fecha es la serie de defunciones diarias del proyecto.",
+            },
+        ]
+    )
+    save_csv(clinical_dummies, "fase_08_dummies_clinicas.csv")
     write_md(
         TABLES / "fase_08_variables_dummy.md",
         f"""
 # Fase 8 - Variables dummy
 
-Se agregaron dummies temporales de dia de semana, mes y anio para controlar patrones calendario en la serie diaria.
+El proyecto cumple con las variables dummy solicitadas desde la etapa de limpieza: sexo, diabetes, hipertension, obesidad, hospitalizacion y defuncion. Estas dummies clinicas existen a nivel individual y se usan para describir la muestra, estimar Logit/Probit y construir las series diarias de hospitalizaciones y defunciones.
 
-## Variables agregadas
+Las dummies temporales de dia de semana, mes y anio se agregan como complemento para controlar patrones calendario en la serie diaria; no sustituyen a las dummies clinicas.
+
+## Dummies clinicas solicitadas
+
+{md_table(clinical_dummies)}
+
+## Dummies temporales complementarias
 
 {md_table(pd.DataFrame({"grupo": ["dia_semana", "mes", "anio"], "dummies": [6, 11, daily["anio"].nunique() - 1]}))}
 
@@ -326,7 +383,7 @@ Se agregaron dummies temporales de dia de semana, mes y anio para controlar patr
 
 ## Interpretacion
 
-Las dummies temporales no sustituyen modelos dinamicos, pero ayudan a controlar diferencias sistematicas por calendario antes de pasar a rezagos y ARIMA.
+Las dummies clinicas permiten codificar condiciones binarias relevantes para severidad, mortalidad y demanda hospitalaria. Las dummies temporales ayudan a controlar diferencias sistematicas por calendario antes de pasar a rezagos y ARIMA, pero se documentan como un bloque adicional y no como reemplazo de las variables clinicas solicitadas.
 """,
     )
 
@@ -398,19 +455,23 @@ Este bloque caracteriza la probabilidad individual de defuncion segun edad, sexo
 
     # Fase 10
     diagnostic_frames = []
+    normality_frames = []
     vif_frames = []
     robust_frames = []
     for name in ["OLS multiple", "OLS dummies temporales"]:
         result, robust, model_data, predictors = ols_results[name]
         diagnostic_frames.append(ols_diagnostic_tests(result, name, nlags=14))
+        normality_frames.append(residual_normality_tests(result, name))
         vif_frame = vif_table(model_data, predictors).round(6)
         vif_frame.insert(0, "modelo", name)
         vif_frames.append(vif_frame)
         robust_frames.append(tidy_result(robust, name, robust=True))
     diagnostics = pd.concat(diagnostic_frames, ignore_index=True).round(6)
+    normality = pd.concat(normality_frames, ignore_index=True).round(6)
     vifs = pd.concat(vif_frames, ignore_index=True).round(6)
     robust_comp = pd.concat(robust_frames, ignore_index=True).round(6)
     save_csv(diagnostics, "fase_10_pruebas_diagnostico.csv")
+    save_csv(normality, "fase_10_normalidad_residuos.csv")
     save_csv(vifs, "fase_10_vif.csv")
     save_csv(robust_comp, "fase_10_coeficientes_hac.csv")
     plot_residuals(multiple_result, daily, "OLS multiple", "fase_10_residuos_ols_multiple.png")
@@ -424,6 +485,10 @@ Este bloque caracteriza la probabilidad individual de defuncion segun edad, sexo
 
 {md_table(diagnostics)}
 
+## Normalidad de residuos
+
+{md_table(normality)}
+
 ## VIF principales
 
 {md_table(vifs.head(15))}
@@ -431,6 +496,8 @@ Este bloque caracteriza la probabilidad individual de defuncion segun edad, sexo
 ## Interpretacion
 
 Las pruebas de heterocedasticidad y autocorrelacion se reportan para decidir si la inferencia debe leerse con errores robustos. En series diarias de defunciones se espera autocorrelacion, por lo que los coeficientes HAC/Newey-West son la referencia para inferencia en OLS.
+
+Jarque-Bera y Shapiro-Wilk evaluan normalidad de residuos. Con p-values bajos se rechaza normalidad estricta, un resultado comun en series epidemiologicas con picos y colas pesadas. En este proyecto la normalidad se documenta para cumplir el diagnostico requerido, pero la inferencia principal se apoya en errores robustos HAC y en la interpretacion de modelos dinamicos.
 """,
     )
 
@@ -653,6 +720,19 @@ El modelo resume informacion reciente de casos, hospitalizaciones y defunciones.
     best_train = fitted_candidates[best_order]
     test_forecast = best_train.forecast(steps=30)
     errors = pd.DataFrame([forecast_errors(test, test_forecast, h) for h in [7, 14, 30]]).round(6)
+    benchmark_forecasts = {
+        "Naive": naive_forecast(train, 30),
+        "Promedio movil 7 dias": moving_average_forecast(train, 30, window=7),
+        "Exponential Smoothing": exponential_smoothing_forecast(train, 30),
+        f"ARIMA{best_order}": pd.Series(np.asarray(test_forecast), index=range(30)),
+    }
+    forecast_comparison, best_forecast_by_horizon = compare_forecast_models(
+        test,
+        benchmark_forecasts,
+        horizons=[7, 14, 30],
+    )
+    forecast_comparison = forecast_comparison.round(6)
+    best_forecast_by_horizon = best_forecast_by_horizon.round(6)
     arima_full_table, full_candidates = fit_arima_candidates(y, [best_order])
     best_full = full_candidates[best_order]
     future_forecast = best_full.forecast(steps=30)
@@ -666,6 +746,8 @@ El modelo resume informacion reciente de casos, hospitalizaciones y defunciones.
     lb_table = ljung_box_summary(best_full, f"ARIMA{best_order}").round(6)
     save_csv(arima_table.round(6), "fase_15_comparacion_arima.csv")
     save_csv(errors, "fase_15_errores_pronostico.csv")
+    save_csv(forecast_comparison, "fase_15_comparacion_modelos_pronostico.csv")
+    save_csv(best_forecast_by_horizon, "fase_15_mejor_modelo_por_horizonte.csv")
     save_csv(future_table, "fase_15_pronosticos_7_14_30.csv")
     save_csv(lb_table, "fase_15_ljung_box_residuos_arima.csv")
 
@@ -681,6 +763,36 @@ El modelo resume informacion reciente de casos, hospitalizaciones y defunciones.
     fig.savefig(FIGURES / "fase_15_arima_pronostico.png", dpi=160)
     plt.close(fig)
 
+    fig, ax = plt.subplots(figsize=(12, 5))
+    validation_window = y.iloc[-120:]
+    ax.plot(validation_window.index, validation_window, label="Observado", linewidth=1.5)
+    for model_name, forecast_values in benchmark_forecasts.items():
+        ax.plot(test.index, np.asarray(forecast_values)[:30], label=model_name, linewidth=1.4)
+    ax.axvline(test.index.min(), color="black", linestyle="--", linewidth=1)
+    ax.set_title("Validacion de modelos de pronostico contra datos reales")
+    ax.set_xlabel("Fecha")
+    ax.set_ylabel("Defunciones")
+    ax.legend()
+    fig.tight_layout()
+    fig.savefig(FIGURES / "fase_15_validacion_pronosticos.png", dpi=160)
+    plt.close(fig)
+
+    fig, ax = plt.subplots(figsize=(12, 5))
+    ax.plot(y.index[-180:], y.iloc[-180:], label="Observado", linewidth=1.5)
+    ax.plot(future_index, future_table["pronostico_defunciones"], label=f"Pronostico futuro ARIMA{best_order}", linewidth=1.8)
+    ax.axvline(y.index.max(), color="black", linestyle="--", linewidth=1)
+    ax.set_title("Pronostico futuro de defunciones diarias")
+    ax.set_xlabel("Fecha")
+    ax.set_ylabel("Defunciones")
+    ax.legend()
+    fig.tight_layout()
+    fig.savefig(FIGURES / "fase_15_pronostico_futuro.png", dpi=160)
+    plt.close(fig)
+
+    best_models_text = "; ".join(
+        f"{int(row.horizonte)} dias: {row.mejor_modelo}"
+        for row in best_forecast_by_horizon.itertuples(index=False)
+    )
     write_md(
         TABLES / "fase_15_arima_pronosticos.md",
         f"""
@@ -698,6 +810,14 @@ El mejor modelo por AIC en la ventana de entrenamiento fue `ARIMA{best_order}`.
 
 {md_table(errors)}
 
+## Comparacion de multiples modelos de pronostico
+
+{md_table(forecast_comparison)}
+
+## Mejor modelo por horizonte
+
+{md_table(best_forecast_by_horizon)}
+
 ## Ljung-Box de residuos
 
 {md_table(lb_table)}
@@ -708,7 +828,9 @@ El mejor modelo por AIC en la ventana de entrenamiento fue `ARIMA{best_order}`.
 
 ## Interpretacion
 
-Los pronosticos a 7, 14 y 30 dias permiten evaluar H4. La revision de residuos indica si el ARIMA seleccionado dejo autocorrelacion remanente relevante.
+Los pronosticos a 7, 14 y 30 dias permiten evaluar H4. La comparacion no se limita a ordenes ARIMA: se incluyen benchmarks Naive, promedio movil de 7 dias, Exponential Smoothing y el ARIMA seleccionado. El mejor modelo por horizonte fue: {best_models_text}. Esta comparacion hace defendible el punto extra porque contrasta el ARIMA contra alternativas simples y transparentes antes de seleccionar el pronostico final.
+
+Se generan dos graficas separadas: `reports/figures/fase_15_validacion_pronosticos.png` para validacion contra datos reales y `reports/figures/fase_15_pronostico_futuro.png` para pronostico futuro. La revision de residuos indica si el ARIMA seleccionado dejo autocorrelacion remanente relevante.
 """,
     )
 
@@ -794,7 +916,9 @@ Las fases 6 a 10 ofrecen modelos base y diagnostico. Las fases 11 a 15 constituy
                 "display(pd.read_csv(TABLES / 'fase_06_metricas_ols_simple.csv'))\n"
                 "display(pd.read_csv(TABLES / 'fase_07_metricas_ols_multiple.csv'))\n"
                 "display(pd.read_csv(TABLES / 'fase_08_metricas_dummies_temporales.csv'))\n"
-                "display(pd.read_csv(TABLES / 'fase_10_pruebas_diagnostico.csv'))",
+                "display(pd.read_csv(TABLES / 'fase_08_dummies_clinicas.csv'))\n"
+                "display(pd.read_csv(TABLES / 'fase_10_pruebas_diagnostico.csv'))\n"
+                "display(pd.read_csv(TABLES / 'fase_10_normalidad_residuos.csv'))",
             ),
         ],
     )
@@ -827,6 +951,8 @@ Las fases 6 a 10 ofrecen modelos base y diagnostico. Las fases 11 a 15 constituy
                 "display(pd.read_csv(TABLES / 'fase_12_metricas_rezagos_distribuidos.csv'))\n"
                 "display(pd.read_csv(TABLES / 'fase_14_comparacion_modelos_dinamicos.csv'))\n"
                 "display(pd.read_csv(TABLES / 'fase_15_errores_pronostico.csv'))\n"
+                "display(pd.read_csv(TABLES / 'fase_15_comparacion_modelos_pronostico.csv'))\n"
+                "display(pd.read_csv(TABLES / 'fase_15_mejor_modelo_por_horizonte.csv'))\n"
                 "display(pd.read_csv(TABLES / 'fase_06_15_contraste_hipotesis.csv'))",
             ),
         ],

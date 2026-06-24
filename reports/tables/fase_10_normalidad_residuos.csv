@@ -1,0 +1,5 @@
+﻿modelo,prueba,estadistico,p_value,n_residuos,muestra_usada,asimetria,curtosis,nota
+OLS multiple,Jarque-Bera,14347.924324,0.0,2291,2291,1.428501,14.922381,Prueba basada en asimetria y curtosis de residuos.
+OLS multiple,Shapiro-Wilk,0.755352,0.0,2291,2291,,,Shapiro-Wilk aplicado a todos los residuos disponibles.
+OLS dummies temporales,Jarque-Bera,5754.330592,0.0,2291,2291,0.636212,10.659113,Prueba basada en asimetria y curtosis de residuos.
+OLS dummies temporales,Shapiro-Wilk,0.881297,0.0,2291,2291,,,Shapiro-Wilk aplicado a todos los residuos disponibles.

@@ -4,9 +4,10 @@ from __future__ import annotations
 
 import numpy as np
 import pandas as pd
+from scipy.stats import shapiro
 from statsmodels.stats.diagnostic import acorr_breusch_godfrey, het_breuschpagan, het_white
 from statsmodels.stats.outliers_influence import variance_inflation_factor
-from statsmodels.stats.stattools import durbin_watson
+from statsmodels.stats.stattools import durbin_watson, jarque_bera
 
 
 def vif_table(model_data: pd.DataFrame, predictors: list[str]) -> pd.DataFrame:
@@ -74,6 +75,57 @@ def ols_diagnostic_tests(result, model_name: str, nlags: int = 14) -> pd.DataFra
                 "prueba": f"Breusch-Godfrey F({nlags})",
                 "estadistico": float(bg_f),
                 "p_value": float(bg_f_pvalue),
+            },
+        ]
+    )
+
+
+def residual_normality_tests(
+    result,
+    model_name: str,
+    shapiro_sample_size: int = 5_000,
+    random_state: int = 19,
+) -> pd.DataFrame:
+    """Aplica Jarque-Bera y Shapiro-Wilk a residuos OLS."""
+    residuals = pd.Series(result.resid).dropna().astype(float)
+    jb_stat, jb_pvalue, skewness, kurtosis = jarque_bera(residuals)
+
+    if len(residuals) > shapiro_sample_size:
+        shapiro_residuals = residuals.sample(
+            shapiro_sample_size, random_state=random_state
+        )
+        shapiro_note = (
+            f"Shapiro-Wilk aplicado a muestra reproducible de {shapiro_sample_size} "
+            f"residuos por tamano total n={len(residuals)}."
+        )
+    else:
+        shapiro_residuals = residuals
+        shapiro_note = "Shapiro-Wilk aplicado a todos los residuos disponibles."
+    shapiro_stat, shapiro_pvalue = shapiro(shapiro_residuals)
+
+    return pd.DataFrame(
+        [
+            {
+                "modelo": model_name,
+                "prueba": "Jarque-Bera",
+                "estadistico": float(jb_stat),
+                "p_value": float(jb_pvalue),
+                "n_residuos": int(len(residuals)),
+                "muestra_usada": int(len(residuals)),
+                "asimetria": float(skewness),
+                "curtosis": float(kurtosis),
+                "nota": "Prueba basada en asimetria y curtosis de residuos.",
+            },
+            {
+                "modelo": model_name,
+                "prueba": "Shapiro-Wilk",
+                "estadistico": float(shapiro_stat),
+                "p_value": float(shapiro_pvalue),
+                "n_residuos": int(len(residuals)),
+                "muestra_usada": int(len(shapiro_residuals)),
+                "asimetria": np.nan,
+                "curtosis": np.nan,
+                "nota": shapiro_note,
             },
         ]
     )

@@ -1,0 +1,7 @@
+﻿variable,origen,construccion,valores_posibles,interpretacion_economica
+sexo_hombre,Limpieza de datos individuales,1 si el registro corresponde a hombre; 0 si corresponde a mujer.,"0, 1",Controla diferencias demograficas de riesgo y uso de servicios de salud por sexo.
+diabetes_dummy,Limpieza de datos individuales,1 si el paciente reporta diabetes; 0 si no la reporta.,"0, 1",Aproxima vulnerabilidad clinica asociada con mayor riesgo de complicaciones.
+hipertension_dummy,Limpieza de datos individuales,1 si el paciente reporta hipertension; 0 si no la reporta.,"0, 1",Captura comorbilidad prevalente que puede elevar severidad y mortalidad.
+obesidad_dummy,Limpieza de datos individuales,1 si el paciente reporta obesidad; 0 si no la reporta.,"0, 1",Controla un factor de riesgo asociado con mayor presion sobre atencion hospitalaria.
+hospitalizacion,Limpieza de datos individuales y agregacion diaria,1 si el paciente fue hospitalizado; 0 si recibio manejo ambulatorio.,"0, 1",Proxy de severidad y demanda de recursos hospitalarios; tambien se agrega como hospitalizaciones diarias.
+defuncion,Limpieza de datos individuales y agregacion diaria,1 si el registro tiene fecha de defuncion valida; 0 si no la tiene.,"0, 1",Variable de resultado individual; agregada por fecha es la serie de defunciones diarias del proyecto.

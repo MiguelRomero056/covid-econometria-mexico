@@ -13,7 +13,7 @@ Explicativas: `edad, sexo_hombre, diabetes_dummy, hipertension_dummy, obesidad_d
 | modelo | nobs | pseudo_r2 | aic | bic | probabilidad_media_predicha |
 | --- | --- | --- | --- | --- | --- |
 | Logit | 500,000 | 0.4710 | 94,681.2207 | 94,770.1996 | 0.0435 |
-| Probit | 500,000 | 0.4791 | 93,222.6038 | 93,311.5827 | 0.0431 |
+| Probit | 500,000 | 0.4791 | 93,222.6044 | 93,311.5833 | 0.0431 |
 
 ## Odds ratios Logit
 
@@ -39,13 +39,13 @@ Explicativas: `edad, sexo_hombre, diabetes_dummy, hipertension_dummy, obesidad_d
 | Logit | obesidad_dummy | 0.0041 | 0.0002 | 18.8116 | 0.0000 | 0.0037 | 0.0045 |
 | Logit | neumonia_dummy | 0.0303 | 0.0004 | 69.8183 | 0.0000 | 0.0294 | 0.0311 |
 | Logit | inmunosupresion_dummy | 0.0058 | 0.0006 | 9.5115 | 0.0000 | 0.0046 | 0.0070 |
-| Probit | edad | 0.0006 | 0.0000 | 70.2793 | 0.0000 | 0.0006 | 0.0006 |
-| Probit | sexo_hombre | 0.0055 | 0.0002 | 27.9219 | 0.0000 | 0.0051 | 0.0058 |
-| Probit | diabetes_dummy | 0.0056 | 0.0002 | 23.5076 | 0.0000 | 0.0052 | 0.0061 |
-| Probit | hipertension_dummy | 0.0036 | 0.0002 | 15.6474 | 0.0000 | 0.0031 | 0.0040 |
-| Probit | obesidad_dummy | 0.0045 | 0.0002 | 18.2771 | 0.0000 | 0.0041 | 0.0050 |
-| Probit | neumonia_dummy | 0.0360 | 0.0006 | 60.7725 | 0.0000 | 0.0348 | 0.0371 |
-| Probit | inmunosupresion_dummy | 0.0073 | 0.0007 | 10.3207 | 0.0000 | 0.0059 | 0.0087 |
+| Probit | edad | 0.0006 | 0.0000 | 70.2818 | 0.0000 | 0.0006 | 0.0006 |
+| Probit | sexo_hombre | 0.0055 | 0.0002 | 27.9202 | 0.0000 | 0.0051 | 0.0058 |
+| Probit | diabetes_dummy | 0.0056 | 0.0002 | 23.5066 | 0.0000 | 0.0052 | 0.0061 |
+| Probit | hipertension_dummy | 0.0036 | 0.0002 | 15.6477 | 0.0000 | 0.0031 | 0.0040 |
+| Probit | obesidad_dummy | 0.0045 | 0.0002 | 18.2761 | 0.0000 | 0.0041 | 0.0050 |
+| Probit | neumonia_dummy | 0.0360 | 0.0006 | 60.7741 | 0.0000 | 0.0348 | 0.0371 |
+| Probit | inmunosupresion_dummy | 0.0073 | 0.0007 | 10.3217 | 0.0000 | 0.0059 | 0.0087 |
 
 ## Interpretacion
 

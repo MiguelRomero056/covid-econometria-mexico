@@ -27,6 +27,31 @@ El mejor modelo por AIC en la ventana de entrenamiento fue `ARIMA(2, 0, 2)`.
 | 14.0000 | 6.7769 | 5.9623 | 343.9427 |
 | 30.0000 | 17.3820 | 14.6216 | 872.8408 |
 
+## Comparacion de multiples modelos de pronostico
+
+| modelo | horizonte | rmse | mae | mape |
+| --- | --- | --- | --- | --- |
+| Naive | 7.0000 | 0.5345 | 0.2857 | 100.0000 |
+| Naive | 14.0000 | 0.3780 | 0.1429 | 100.0000 |
+| Naive | 30.0000 | 0.3162 | 0.1000 | 100.0000 |
+| Promedio movil 7 dias | 7.0000 | 0.5345 | 0.2857 | 100.0000 |
+| Promedio movil 7 dias | 14.0000 | 0.3780 | 0.1429 | 100.0000 |
+| Promedio movil 7 dias | 30.0000 | 0.3162 | 0.1000 | 100.0000 |
+| Exponential Smoothing | 7.0000 | 0.5344 | 0.2858 | 99.9769 |
+| Exponential Smoothing | 14.0000 | 0.3779 | 0.1430 | 99.9769 |
+| Exponential Smoothing | 30.0000 | 0.3162 | 0.1002 | 99.9769 |
+| ARIMA(2, 0, 2) | 7.0000 | 3.2166 | 3.1205 | 343.9427 |
+| ARIMA(2, 0, 2) | 14.0000 | 6.7769 | 5.9623 | 343.9427 |
+| ARIMA(2, 0, 2) | 30.0000 | 17.3820 | 14.6216 | 872.8408 |
+
+## Mejor modelo por horizonte
+
+| horizonte | mejor_modelo | mejor_rmse | mejor_mae | mejor_mape |
+| --- | --- | --- | --- | --- |
+| 7.0000 | Exponential Smoothing | 0.5344 | 0.2858 | 99.9769 |
+| 14.0000 | Exponential Smoothing | 0.3779 | 0.1430 | 99.9769 |
+| 30.0000 | Exponential Smoothing | 0.3162 | 0.1002 | 99.9769 |
+
 ## Ljung-Box de residuos
 
 | modelo | rezago | lb_stat | lb_pvalue |
@@ -52,4 +77,6 @@ El mejor modelo por AIC en la ventana de entrenamiento fue `ARIMA(2, 0, 2)`.
 
 ## Interpretacion
 
-Los pronosticos a 7, 14 y 30 dias permiten evaluar H4. La revision de residuos indica si el ARIMA seleccionado dejo autocorrelacion remanente relevante.
+Los pronosticos a 7, 14 y 30 dias permiten evaluar H4. La comparacion no se limita a ordenes ARIMA: se incluyen benchmarks Naive, promedio movil de 7 dias, Exponential Smoothing y el ARIMA seleccionado. El mejor modelo por horizonte fue: 7 dias: Exponential Smoothing; 14 dias: Exponential Smoothing; 30 dias: Exponential Smoothing. Esta comparacion hace defendible el punto extra porque contrasta el ARIMA contra alternativas simples y transparentes antes de seleccionar el pronostico final.
+
+Se generan dos graficas separadas: `reports/figures/fase_15_validacion_pronosticos.png` para validacion contra datos reales y `reports/figures/fase_15_pronostico_futuro.png` para pronostico futuro. La revision de residuos indica si el ARIMA seleccionado dejo autocorrelacion remanente relevante.

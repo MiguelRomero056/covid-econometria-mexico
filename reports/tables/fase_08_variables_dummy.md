@@ -1,8 +1,21 @@
 # Fase 8 - Variables dummy
 
-Se agregaron dummies temporales de dia de semana, mes y anio para controlar patrones calendario en la serie diaria.
+El proyecto cumple con las variables dummy solicitadas desde la etapa de limpieza: sexo, diabetes, hipertension, obesidad, hospitalizacion y defuncion. Estas dummies clinicas existen a nivel individual y se usan para describir la muestra, estimar Logit/Probit y construir las series diarias de hospitalizaciones y defunciones.
 
-## Variables agregadas
+Las dummies temporales de dia de semana, mes y anio se agregan como complemento para controlar patrones calendario en la serie diaria; no sustituyen a las dummies clinicas.
+
+## Dummies clinicas solicitadas
+
+| variable | origen | construccion | valores_posibles | interpretacion_economica |
+| --- | --- | --- | --- | --- |
+| sexo_hombre | Limpieza de datos individuales | 1 si el registro corresponde a hombre; 0 si corresponde a mujer. | 0, 1 | Controla diferencias demograficas de riesgo y uso de servicios de salud por sexo. |
+| diabetes_dummy | Limpieza de datos individuales | 1 si el paciente reporta diabetes; 0 si no la reporta. | 0, 1 | Aproxima vulnerabilidad clinica asociada con mayor riesgo de complicaciones. |
+| hipertension_dummy | Limpieza de datos individuales | 1 si el paciente reporta hipertension; 0 si no la reporta. | 0, 1 | Captura comorbilidad prevalente que puede elevar severidad y mortalidad. |
+| obesidad_dummy | Limpieza de datos individuales | 1 si el paciente reporta obesidad; 0 si no la reporta. | 0, 1 | Controla un factor de riesgo asociado con mayor presion sobre atencion hospitalaria. |
+| hospitalizacion | Limpieza de datos individuales y agregacion diaria | 1 si el paciente fue hospitalizado; 0 si recibio manejo ambulatorio. | 0, 1 | Proxy de severidad y demanda de recursos hospitalarios; tambien se agrega como hospitalizaciones diarias. |
+| defuncion | Limpieza de datos individuales y agregacion diaria | 1 si el registro tiene fecha de defuncion valida; 0 si no la tiene. | 0, 1 | Variable de resultado individual; agregada por fecha es la serie de defunciones diarias del proyecto. |
+
+## Dummies temporales complementarias
 
 | grupo | dummies |
 | --- | --- |
@@ -29,4 +42,4 @@ Se agregaron dummies temporales de dia de semana, mes y anio para controlar patr
 
 ## Interpretacion
 
-Las dummies temporales no sustituyen modelos dinamicos, pero ayudan a controlar diferencias sistematicas por calendario antes de pasar a rezagos y ARIMA.
+Las dummies clinicas permiten codificar condiciones binarias relevantes para severidad, mortalidad y demanda hospitalaria. Las dummies temporales ayudan a controlar diferencias sistematicas por calendario antes de pasar a rezagos y ARIMA, pero se documentan como un bloque adicional y no como reemplazo de las variables clinicas solicitadas.
