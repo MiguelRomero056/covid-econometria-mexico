@@ -1,0 +1,4 @@
+﻿serie,estadistico_adf,p_value,rezagos_usados,nobs,valor_critico_1pct,valor_critico_5pct,valor_critico_10pct,icbest
+casos_confirmados,-5.689662,1e-06,27.0,2263.0,-3.433243,-2.862818,-2.56745,37401.319422
+hospitalizaciones,-2.97329,0.037465,27.0,2263.0,-3.433243,-2.862818,-2.56745,27466.665238
+defunciones,-3.287883,0.015429,26.0,2264.0,-3.433242,-2.862817,-2.56745,24536.351852

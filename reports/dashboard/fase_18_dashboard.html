@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard fase 18 - COVID-19 Mexico</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --text: #172033;
+      --muted: #667085;
+      --line: #d9e2ec;
+      --panel: #ffffff;
+      --soft: #f5f7fb;
+      --brand: #1d4ed8;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: var(--soft);
+    }
+    header {
+      padding: 28px clamp(18px, 4vw, 56px);
+      background: #ffffff;
+      border-bottom: 1px solid var(--line);
+    }
+    header h1 {
+      margin: 0 0 8px;
+      font-size: clamp(26px, 4vw, 42px);
+      line-height: 1.1;
+      letter-spacing: 0;
+    }
+    header p {
+      margin: 0;
+      max-width: 980px;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.5;
+    }
+    main {
+      width: min(1220px, calc(100% - 32px));
+      margin: 22px auto 42px;
+    }
+    section {
+      margin-top: 22px;
+      padding: 20px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+    h2 {
+      margin: 0 0 14px;
+      font-size: 20px;
+      letter-spacing: 0;
+    }
+    h3 {
+      margin: 0 0 10px;
+      font-size: 16px;
+    }
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+    .metric-card {
+      min-height: 118px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #ffffff;
+    }
+    .metric-card p {
+      margin: 0 0 10px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .metric-card strong {
+      display: block;
+      font-size: 24px;
+      line-height: 1.2;
+    }
+    .metric-card span {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 18px;
+    }
+    .visual-panel {
+      min-width: 0;
+    }
+    .visual-panel img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    .data-table th,
+    .data-table td {
+      padding: 10px 8px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+    .data-table th {
+      color: #344054;
+      background: #f8fafc;
+    }
+    footer {
+      width: min(1220px, calc(100% - 32px));
+      margin: 0 auto 28px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    @media (max-width: 980px) {
+      .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 560px) {
+      .metrics { grid-template-columns: 1fr; }
+      section { padding: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Dashboard ejecutivo COVID-19 Mexico</h1>
+    <p>Fase 18 del proyecto econometrico. Resume la muestra confirmada, tendencias temporales, comorbilidades, resultados de modelos con rezagos y pronosticos ARIMA.</p>
+    <div class="metrics">
+    <article class="metric-card">
+      <p>Casos analizados</p>
+      <strong>7,735,170</strong>
+      <span>2020-02-19 a 2026-05-28</span>
+    </article>
+    
+
+    <article class="metric-card">
+      <p>Defunciones</p>
+      <strong>336,386</strong>
+      <span>4.35%</span>
+    </article>
+    
+
+    <article class="metric-card">
+      <p>Hospitalizaciones</p>
+      <strong>743,853</strong>
+      <span>9.62%</span>
+    </article>
+    
+
+    <article class="metric-card">
+      <p>Serie diaria</p>
+      <strong>2,291</strong>
+      <span>dias continuos</span>
+    </article>
+    
+
+    <article class="metric-card">
+      <p>Mejor R2 de rezagos</p>
+      <strong>0.9324</strong>
+      <span>Rezagos combinados</span>
+    </article>
+    
+
+    <article class="metric-card">
+      <p>RMSE ARIMA 30d</p>
+      <strong>17.3820</strong>
+      <span>2026-05-29 a 2026-06-27</span>
+    </article>
+    </div>
+  </header>
+  <main>
+    <section>
+      <h2>Series temporales y pronostico</h2>
+      <div class="grid-2">
+        
+    <article class="visual-panel">
+      <h3>Casos, hospitalizaciones y defunciones</h3>
+      <img src="../figures/fase_11_series_temporales.png" alt="Series temporales COVID-19">
+    </article>
+    
+        
+    <article class="visual-panel">
+      <h3>Pronostico ARIMA</h3>
+      <img src="../figures/fase_15_arima_pronostico.png" alt="Pronostico ARIMA de defunciones">
+    </article>
+    
+      </div>
+    </section>
+    <section>
+      <h2>Exploracion descriptiva</h2>
+      <div class="grid-2">
+        
+    <article class="visual-panel">
+      <h3>Distribucion de edad</h3>
+      <img src="../figures/histograma_edad.png" alt="Histograma de edad">
+    </article>
+    
+        
+    <article class="visual-panel">
+      <h3>Matriz de correlacion</h3>
+      <img src="../figures/matriz_correlacion.png" alt="Matriz de correlacion">
+    </article>
+    
+      </div>
+    </section>
+    <section>
+      <h2>Modelos dinamicos</h2>
+      <div class="grid-2">
+        
+    <article class="visual-panel">
+      <h3>Rezagos combinados</h3>
+      <img src="../figures/fase_12_rezagos_observado_estimado.png" alt="Modelo de rezagos observado contra estimado">
+    </article>
+    
+        
+    <article class="visual-panel">
+      <h3>Ajuste parcial</h3>
+      <img src="../figures/fase_13_ajuste_parcial.png" alt="Modelo de ajuste parcial">
+    </article>
+    
+      </div>
+    </section>
+    <section>
+      <h2>Metricas de rezagos</h2>
+      <table class="dataframe data-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>modelo</th>
+      <th>nobs</th>
+      <th>r2</th>
+      <th>r2_ajustado</th>
+      <th>aic</th>
+      <th>bic</th>
+      <th>rmse</th>
+      <th>mae</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Rezagos casos</td>
+      <td>2277.0</td>
+      <td>0.277409</td>
+      <td>0.276455</td>
+      <td>31326.153796</td>
+      <td>31349.076253</td>
+      <td>234.657363</td>
+      <td>150.943152</td>
+    </tr>
+    <tr>
+      <td>Rezagos hospitalizaciones</td>
+      <td>2277.0</td>
+      <td>0.918596</td>
+      <td>0.918488</td>
+      <td>26354.510864</td>
+      <td>26377.433320</td>
+      <td>78.760956</td>
+      <td>38.250569</td>
+    </tr>
+    <tr>
+      <td>Rezagos combinados</td>
+      <td>2277.0</td>
+      <td>0.932445</td>
+      <td>0.932267</td>
+      <td>25935.875769</td>
+      <td>25975.990067</td>
+      <td>71.748932</td>
+      <td>31.414067</td>
+    </tr>
+  </tbody>
+</table>
+    </section>
+    <section>
+      <h2>Comorbilidades principales</h2>
+      <table class="dataframe data-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>variable</th>
+      <th>casos_1</th>
+      <th>observaciones_validas</th>
+      <th>prevalencia</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>hipertension_dummy</td>
+      <td>922553</td>
+      <td>7712691</td>
+      <td>11.96%</td>
+    </tr>
+    <tr>
+      <td>obesidad_dummy</td>
+      <td>741454</td>
+      <td>7713878</td>
+      <td>9.61%</td>
+    </tr>
+    <tr>
+      <td>diabetes_dummy</td>
+      <td>677105</td>
+      <td>7711682</td>
+      <td>8.78%</td>
+    </tr>
+    <tr>
+      <td>neumonia_dummy</td>
+      <td>535526</td>
+      <td>7705445</td>
+      <td>6.95%</td>
+    </tr>
+    <tr>
+      <td>tabaquismo_dummy</td>
+      <td>417604</td>
+      <td>7712233</td>
+      <td>5.41%</td>
+    </tr>
+    <tr>
+      <td>asma_dummy</td>
+      <td>147008</td>
+      <td>7712882</td>
+      <td>1.91%</td>
+    </tr>
+    <tr>
+      <td>epoc_dummy</td>
+      <td>53286</td>
+      <td>7712662</td>
+      <td>0.69%</td>
+    </tr>
+    <tr>
+      <td>inmunosupresion_dummy</td>
+      <td>45223</td>
+      <td>7712655</td>
+      <td>0.59%</td>
+    </tr>
+  </tbody>
+</table>
+    </section>
+    <section>
+      <h2>Contraste de hipotesis</h2>
+      <table class="dataframe data-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>hipotesis</th>
+      <th>evidencia</th>
+      <th>evaluacion</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>H1</td>
+      <td>2 de 3 rezagos de casos tienen signo positivo<br> R2 rezagos casos=0.2774.</td>
+      <td>Apoyo parcial</td>
+    </tr>
+    <tr>
+      <td>H2</td>
+      <td>R2 rezagos hospitalizaciones=0.9186 vs R2 rezagos casos=0.2774.</td>
+      <td>Apoya H2</td>
+    </tr>
+    <tr>
+      <td>H3</td>
+      <td>Durbin-Watson OLS multiple=0.2735<br> coeficiente defunciones_t-1=0.9952.</td>
+      <td>Apoya H3</td>
+    </tr>
+    <tr>
+      <td>H4</td>
+      <td>ARIMA(2, 0, 2) genera pronosticos con RMSE 7 dias=3.2166 y RMSE 30 dias=17.3820.</td>
+      <td>Apoyo inicial</td>
+    </tr>
+  </tbody>
+</table>
+    </section>
+    <section>
+      <h2>Errores de pronostico ARIMA</h2>
+      <table class="dataframe data-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>horizonte</th>
+      <th>rmse</th>
+      <th>mae</th>
+      <th>mape</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>7.0</td>
+      <td>3.216583</td>
+      <td>3.120536</td>
+      <td>343.942737</td>
+    </tr>
+    <tr>
+      <td>14.0</td>
+      <td>6.776938</td>
+      <td>5.962285</td>
+      <td>343.942737</td>
+    </tr>
+    <tr>
+      <td>30.0</td>
+      <td>17.381990</td>
+      <td>14.621597</td>
+      <td>872.840770</td>
+    </tr>
+  </tbody>
+</table>
+    </section>
+  </main>
+  <footer>
+    Generado con <code>scripts/build_phase_18_dashboard.py</code>. Fuentes internas: tablas y graficas de fases 5 a 15.
+  </footer>
+</body>
+</html>

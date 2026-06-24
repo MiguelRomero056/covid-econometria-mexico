@@ -1,0 +1,9 @@
+﻿modelo,robusto,variable,coeficiente,error_std,p_value,ci_95_inf,ci_95_sup
+Expectativas adaptativas,False,const,1.798696,1.630161,0.269976,-1.398054,4.995445
+Expectativas adaptativas,False,casos_confirmados_ema7_lag1,0.001509,0.000371,4.8e-05,0.000783,0.002236
+Expectativas adaptativas,False,hospitalizaciones_ema7_lag1,-0.073276,0.025393,0.003942,-0.123071,-0.02348
+Expectativas adaptativas,False,defunciones_ema7_lag1,1.115087,0.045491,0.0,1.025879,1.204295
+Expectativas adaptativas,True,const,1.798696,1.68279,0.285238,-1.50126,5.098651
+Expectativas adaptativas,True,casos_confirmados_ema7_lag1,0.001509,0.001079,0.161889,-0.000606,0.003624
+Expectativas adaptativas,True,hospitalizaciones_ema7_lag1,-0.073276,0.092788,0.42978,-0.255234,0.108682
+Expectativas adaptativas,True,defunciones_ema7_lag1,1.115087,0.178997,0.0,0.764074,1.4661

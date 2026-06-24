@@ -1,0 +1,9 @@
+﻿variable,odds_ratio,or_ci_95_inf,or_ci_95_sup
+const,0.00045,0.000418,0.000485
+edad,1.062707,1.061467,1.063949
+sexo_hombre,1.689202,1.62961,1.750973
+diabetes_dummy,1.663089,1.594801,1.734301
+hipertension_dummy,1.363265,1.308096,1.42076
+obesidad_dummy,1.561143,1.490719,1.634894
+neumonia_dummy,27.181657,26.232402,28.165263
+inmunosupresion_dummy,1.886776,1.656684,2.148826

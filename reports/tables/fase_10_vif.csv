@@ -1,0 +1,28 @@
+﻿modelo,variable,vif
+OLS multiple,hospitalizaciones,1.966097
+OLS multiple,casos_confirmados,1.966097
+OLS dummies temporales,hospitalizaciones,3.839777
+OLS dummies temporales,casos_confirmados,3.118327
+OLS dummies temporales,anio_2022,2.782451
+OLS dummies temporales,anio_2023,2.19352
+OLS dummies temporales,anio_2025,2.176387
+OLS dummies temporales,anio_2024,2.170521
+OLS dummies temporales,anio_2021,1.898183
+OLS dummies temporales,dow_4,1.843582
+OLS dummies temporales,dow_1,1.839417
+OLS dummies temporales,dow_3,1.838798
+OLS dummies temporales,dow_2,1.838419
+OLS dummies temporales,dow_6,1.835978
+OLS dummies temporales,dow_5,1.829663
+OLS dummies temporales,mes_5,1.677393
+OLS dummies temporales,mes_4,1.641989
+OLS dummies temporales,mes_3,1.633887
+OLS dummies temporales,mes_8,1.630193
+OLS dummies temporales,mes_7,1.606971
+OLS dummies temporales,mes_2,1.6056
+OLS dummies temporales,mes_12,1.595889
+OLS dummies temporales,mes_10,1.578231
+OLS dummies temporales,mes_9,1.564897
+OLS dummies temporales,mes_11,1.561925
+OLS dummies temporales,mes_6,1.559356
+OLS dummies temporales,anio_2026,1.476884

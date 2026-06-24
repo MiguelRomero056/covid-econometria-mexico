@@ -1,0 +1,17 @@
+﻿modelo,robusto,variable,coeficiente,error_std,p_value,ci_95_inf,ci_95_sup
+Logit,False,const,-7.70639,0.037842,0.0,-7.780559,-7.632221
+Logit,False,edad,0.06082,0.000596,0.0,0.059652,0.061987
+Logit,False,sexo_hombre,0.524256,0.018324,0.0,0.488341,0.560172
+Logit,False,diabetes_dummy,0.508677,0.021392,0.0,0.466749,0.550605
+Logit,False,hipertension_dummy,0.309882,0.021077,0.0,0.268573,0.351192
+Logit,False,obesidad_dummy,0.445418,0.023551,0.0,0.399259,0.491578
+Logit,False,neumonia_dummy,3.302542,0.018137,0.0,3.266995,3.338089
+Logit,False,inmunosupresion_dummy,0.63487,0.066354,0.0,0.504818,0.764921
+Probit,False,const,-3.94293,0.017865,0.0,-3.977944,-3.907916
+Probit,False,edad,0.029983,0.000292,0.0,0.02941,0.030557
+Probit,False,sexo_hombre,0.264182,0.009065,0.0,0.246415,0.281949
+Probit,False,diabetes_dummy,0.272614,0.010949,0.0,0.251155,0.294073
+Probit,False,hipertension_dummy,0.172563,0.010688,0.0,0.151614,0.193512
+Probit,False,obesidad_dummy,0.220076,0.011938,0.0,0.196678,0.243475
+Probit,False,neumonia_dummy,1.739744,0.00925,0.0,1.721615,1.757873
+Probit,False,inmunosupresion_dummy,0.35183,0.033773,0.0,0.285636,0.418024

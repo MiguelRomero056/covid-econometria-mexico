@@ -1,0 +1,10 @@
+﻿indicador,valor
+Casos confirmados analizados,7735170.0
+Defunciones,336386.0
+Hospitalizaciones,743853.0
+Tasa de letalidad observada,0.043487861288116485
+Tasa de hospitalizacion observada,0.09616504873196065
+Dias en serie continua,2291.0
+R2 mejor modelo de rezagos,0.932445
+RMSE ARIMA 7 dias,3.216583
+RMSE ARIMA 30 dias,17.38199

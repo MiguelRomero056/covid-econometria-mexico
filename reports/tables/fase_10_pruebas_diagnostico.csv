@@ -1,0 +1,15 @@
+﻿modelo,prueba,estadistico,p_value
+OLS multiple,Durbin-Watson,0.273471,
+OLS multiple,Breusch-Pagan LM,898.974446,0.0
+OLS multiple,Breusch-Pagan F,738.798769,0.0
+OLS multiple,White LM,1450.649805,0.0
+OLS multiple,White F,788.893684,0.0
+OLS multiple,Breusch-Godfrey LM(14),1920.506915,0.0
+OLS multiple,Breusch-Godfrey F(14),841.973054,0.0
+OLS dummies temporales,Durbin-Watson,0.403559,
+OLS dummies temporales,Breusch-Pagan LM,963.652335,0.0
+OLS dummies temporales,Breusch-Pagan F,65.775459,0.0
+OLS dummies temporales,White LM,1602.518731,0.0
+OLS dummies temporales,White F,20.451174,0.0
+OLS dummies temporales,Breusch-Godfrey LM(14),1738.738103,0.0
+OLS dummies temporales,Breusch-Godfrey F(14),506.216796,0.0

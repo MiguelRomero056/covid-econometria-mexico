@@ -1,0 +1,30 @@
+﻿modelo,robusto,variable,coeficiente,error_std,p_value,ci_95_inf,ci_95_sup
+OLS multiple,True,const,-12.404435,2.027262,0.0,-16.379897,-8.428972
+OLS multiple,True,casos_confirmados,-0.006026,0.000653,0.0,-0.007308,-0.004745
+OLS multiple,True,hospitalizaciones,0.553092,0.014342,0.0,0.524967,0.581217
+OLS dummies temporales,True,const,-31.34511,15.369008,0.041516,-61.483918,-1.206302
+OLS dummies temporales,True,casos_confirmados,-0.006411,0.000691,0.0,-0.007765,-0.005056
+OLS dummies temporales,True,hospitalizaciones,0.579331,0.01805,0.0,0.543934,0.614728
+OLS dummies temporales,True,dow_1,-0.536173,1.148524,0.640662,-2.788442,1.716096
+OLS dummies temporales,True,dow_2,0.395601,1.014526,0.69662,-1.593896,2.385098
+OLS dummies temporales,True,dow_3,0.332987,1.233581,0.787235,-2.08608,2.752055
+OLS dummies temporales,True,dow_4,0.560058,1.071831,0.601356,-1.541815,2.661931
+OLS dummies temporales,True,dow_5,0.303636,1.226602,0.804511,-2.101744,2.709017
+OLS dummies temporales,True,dow_6,1.849023,1.073468,0.08512,-0.256061,3.954107
+OLS dummies temporales,True,mes_2,-15.97354,10.163297,0.116162,-35.903886,3.956806
+OLS dummies temporales,True,mes_3,-12.733068,8.927174,0.153912,-30.239363,4.773226
+OLS dummies temporales,True,mes_4,-10.899662,9.238375,0.238194,-29.016224,7.216901
+OLS dummies temporales,True,mes_5,-10.789969,9.575588,0.259938,-29.567811,7.987873
+OLS dummies temporales,True,mes_6,-24.750016,11.911558,0.037839,-48.108722,-1.39131
+OLS dummies temporales,True,mes_7,-38.237188,12.754019,0.002747,-63.247971,-13.226405
+OLS dummies temporales,True,mes_8,-32.032484,12.314237,0.009349,-56.18085,-7.884118
+OLS dummies temporales,True,mes_9,-20.632058,10.419353,0.047806,-41.064534,-0.199583
+OLS dummies temporales,True,mes_10,-10.730852,9.696752,0.268565,-29.746298,8.284595
+OLS dummies temporales,True,mes_11,-5.660848,9.720505,0.560381,-24.722874,13.401178
+OLS dummies temporales,True,mes_12,3.497239,13.210656,0.791243,-22.409015,29.403494
+OLS dummies temporales,True,anio_2021,5.382677,11.521847,0.640422,-17.211802,27.977156
+OLS dummies temporales,True,anio_2022,27.792449,16.025011,0.082998,-3.632789,59.217687
+OLS dummies temporales,True,anio_2023,32.027696,15.277271,0.036155,2.068785,61.986607
+OLS dummies temporales,True,anio_2024,40.153168,15.275242,0.008631,10.198238,70.108099
+OLS dummies temporales,True,anio_2025,41.936262,15.401957,0.006523,11.732841,72.139683
+OLS dummies temporales,True,anio_2026,40.095802,15.05625,0.007798,10.570318,69.621287

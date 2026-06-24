@@ -1,0 +1,5 @@
+﻿modelo,robusto,variable,coeficiente,error_std,p_value,ci_95_inf,ci_95_sup
+OLS casos,False,const,78.214551,5.483042,0.0,67.462301,88.966801
+OLS casos,False,casos_confirmados,0.020322,0.000707,0.0,0.018935,0.021709
+OLS hospitalizaciones,False,const,-17.086666,1.09867,0.0,-19.241159,-14.932172
+OLS hospitalizaciones,False,hospitalizaciones,0.504846,0.001748,0.0,0.501419,0.508274
